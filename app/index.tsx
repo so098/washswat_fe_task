@@ -6,19 +6,49 @@ import {
   SafeAreaView,
   FlatList,
 } from "react-native";
-import React from "react";
+import "react-native-get-random-values";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import MemoItem from "@/components/MemoList/MemoItem";
-import { removeMemo } from "@/store/slices/memoListSlice";
+import { addMemos, MemoType, removeMemo } from "@/store/slices/memoListSlice";
+import { v4 as uuidv4 } from "uuid";
 import FontSizes from "@/constants/FontSizes";
 
 export default function HomeScreen() {
+  const flatListRef = useRef<FlatList>(null);
   const { memoList } = useSelector((state: RootState) => state.memoList);
+  const memoListLengthRef = useRef<number>(memoList.length);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (memoList.length > memoListLengthRef.current) {
+      onScrollToEnd();
+    }
+
+    memoListLengthRef.current = memoList.length;
+  }, [memoList, memoList.length]);
 
   const handleDeleteItem = (id: string) => {
     dispatch(removeMemo(id));
+  };
+
+  const handleAddItem = () => {
+    const newMemoId = uuidv4();
+
+    const dummyMemo: MemoType = {
+      id: newMemoId,
+      title: "제목없음",
+      description: "제목없음",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    dispatch(addMemos(dummyMemo));
+  };
+
+  const onScrollToEnd = () => {
+    flatListRef.current?.scrollToEnd({ animated: true });
   };
 
   const renderEmptyComponent = () => {
@@ -33,6 +63,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <FlatList
+          ref={flatListRef}
           data={memoList}
           renderItem={({ item }) => (
             <MemoItem
@@ -48,7 +79,7 @@ export default function HomeScreen() {
           style={styles.flatListStyle}
           ListEmptyComponent={renderEmptyComponent}
         />
-        <TouchableOpacity style={styles.bottomButton}>
+        <TouchableOpacity style={styles.bottomButton} onPress={handleAddItem}>
           <Text style={styles.buttonText}>{"추가"}</Text>
         </TouchableOpacity>
       </View>
