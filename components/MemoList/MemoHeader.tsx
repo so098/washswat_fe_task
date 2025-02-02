@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
   cardDate: {
     flexShrink: 0,
     color: Colors.tertiary,
-    fontSize: FontSizes.xSmall,
+    fontSize: FontSizes.xsmall,
   },
 });
