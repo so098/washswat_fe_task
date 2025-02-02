@@ -1,8 +1,14 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 import Colors from "@/constants/Colors";
 
 export default function StackContainer() {
+  const memoListLength = useSelector(
+    (state: RootState) => state.memoList.memoList.length,
+  );
+
   return (
     <Stack
       screenOptions={{
@@ -15,7 +21,7 @@ export default function StackContainer() {
       <Stack.Screen
         name="index"
         options={{
-          title: `메모 리스트`,
+          title: `메모 리스트 (${memoListLength})`,
         }}
       />
     </Stack>
