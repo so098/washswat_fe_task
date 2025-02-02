@@ -7,6 +7,7 @@ import { useRouter } from "expo-router";
 import colors from "@/constants/Colors";
 import TitleDisplay from "@/components/detailMemo/TitleDisplay";
 import EditDeleteButtons from "@/components/detailMemo/EditDeleteButtons";
+import DescriptionDisplay from "@/components/detailMemo/DescriptionDisplay";
 import FontSizes from "@/constants/FontSizes";
 
 type DetailType = {
@@ -26,7 +27,6 @@ export default function MemoDetailForm({ item }: DetailType) {
     if (!isEdit) {
       dispatch(removeMemo(item.id));
       router.back();
-
       return;
     }
 
@@ -62,6 +62,11 @@ export default function MemoDetailForm({ item }: DetailType) {
         />
       </View>
       <Text style={styles.cardDate}>{utils.formatDate(item.updatedAt)}</Text>
+      <DescriptionDisplay
+        isEdit={isEdit}
+        description={description}
+        onChangeDescription={setDescription}
+      />
     </View>
   );
 }
