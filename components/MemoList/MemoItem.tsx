@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import Colors from "@/constants/Colors";
 import FontSizes from "@/constants/FontSizes";
+import CloseButton from "./CloseButton";
+import MemoHeader from "./MemoHeader";
 
 type ItemType = {
   item: MemoType;
@@ -16,6 +18,7 @@ export default function MemoItem({ item, onDeletePress }: ItemType) {
   return (
     <TouchableOpacity onPress={() => router.push(`/memo/${item.id}`)}>
       <View style={styles.card}>
+        <MemoHeader title={item.title} createdAt={item.createdAt} />
         <Text
           style={styles.cardDescription}
           numberOfLines={1}
@@ -23,6 +26,7 @@ export default function MemoItem({ item, onDeletePress }: ItemType) {
         >
           {item.description}
         </Text>
+        <CloseButton onDeletePress={onDeletePress} />
       </View>
     </TouchableOpacity>
   );
