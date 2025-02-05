@@ -27,7 +27,7 @@ export default function HomeScreen() {
     }
 
     memoListLengthRef.current = memoList.length;
-  }, [memoList, memoList.length]);
+  }, [memoList.length]);
 
   const handleDeleteItem = (id: string) => {
     dispatch(removeMemo(id));
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   },
   flatList: {
     backgroundColor: "white",
+    paddingBottom: 70,
   },
   emptyFlatList: {
     flexGrow: 1,
