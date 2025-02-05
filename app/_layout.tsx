@@ -5,6 +5,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
+import { Provider } from "react-redux";
+import { store } from "@/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import StackContainer from "@/components/StackContainer";
 
@@ -47,10 +49,12 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <SafeAreaProvider>
-        <StackContainer />
-      </SafeAreaProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={DefaultTheme}>
+        <SafeAreaProvider>
+          <StackContainer />
+        </SafeAreaProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
