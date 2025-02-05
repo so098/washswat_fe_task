@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "transparent",
     backgroundColor: "transparent",
-    height: 200,
+    minHeight: 200,
+    maxHeight: 700,
   },
 });
