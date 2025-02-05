@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
   cardDescriptionInput: {
     paddingTop: 0,
     margin: 0,
-    borderWidth: 0,
     borderColor: "transparent",
     backgroundColor: "transparent",
     minHeight: 200,
